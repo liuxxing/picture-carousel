@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.hidden{
+		display: none;
+	}
+	#container{
+		position: relative;
+		border: 1px solid #ccc;
+	}
+	#adv{
+		position: absolute;
+	}
+	#number{
+		position: absolute;
+		top:160px;
+		left:400px;
+	}
+	a{
+		display: block;
+		float: left;
+		width:16px;
+		height:16px;
+		background: #fff;
+		color:#000;
+		margin-right:3px;
+		text-align: center;
+		border:1px solid #ccc;
+		font-size:12px;
+		line-height: 16px;
+		/* opacity: 50%; */
+	}
+	.curr{
+		background:#ff7300;
+		color:#fff;
+	}
+	.uncurr{
+		background: #fff;
+		color:#000;
+	}
+</style>
+<script type="text/javascript">
+	var max=4;//总的图片数量
+	var now=1;//当前显示的图片
+	var timer;
+	
+	function show(id){
+		//alert(id);
+		if(Number(id)){
+			now=id;
+			clearTimeout(timer);//停止原有的计时器
+		}
+		
+		for(var i=1;i<=max;i++){
+			if(i==now){
+				$("adv"+now).style.display="block";
+				$("num"+now).className="curr";
+			}else{
+				$("adv"+i).style.display="none";
+				$("num"+i).className="uncurr";
+			}
+		}
+		
+		//判断当前图片是否是最后一张
+		if(now==max){
+			now=1;
+		}else{
+			now++;
+		}
+		
+		timer=setTimeout("show()",2000);//每两秒切换图片
+	}
+	
+	window.onload=show;
+	
+	function $(id){
+		return document.getElementById(id);
+	}
+</script>
+</head>
+<body>
+  <div id="container">
+	<div id="adv">
+		<img src="images/ad-01.jpg" id="adv1"/>
+		<img src="images/ad-02.jpg" id="adv2" class="hidden"/>
+		<img src="images/ad-03.jpg" id="adv3" class="hidden"/>
+		<img src="images/ad-04.jpg" id="adv4" class="hidden"/>
+	</div>
+	<div id="number">
+	  <a onmouseover="show(1)" id="num1">1</a>
+	  <a onmouseover="show(2)" id="num2">2</a>
+	  <a onmouseover="show(3)" id="num3">3</a>
+	  <a onmouseover="show(4)" id="num4">4</a>
+	</div>
+  </div>	
+</body>
+</html>
